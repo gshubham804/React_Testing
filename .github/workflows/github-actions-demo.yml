@@ -1,34 +1,53 @@
-name: Test and Coverage
+---
+name: Code Coverage
 
 on:
+  # NOTE: Both, the 'pull_request' and the 'push'
+  # events are REQUIRED to take full advantage
+  # of the features of this action.
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
 
 jobs:
-  test-and-check-coverage:
+  coverage:
+    name: Calculate code coverage
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Your logic to generate the Cobertura XML goes here
+        run: echo "Your logic to generate the Cobertura XML goes here"
+
+      - name: Produce the coverage report
+        uses: insightsengineering/coverage-action@v2
         with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests with coverage
-        run: npm run coverage
-
-      - name: Check coverage
-        run: |
-           if [ -f "coverage/lcov-report/index.html" ]; then
-               echo "🎉 Coverage report found!"
-           else
-                    echo "❌ Coverage report not found. Make sure your tests generate coverage reports."
-             exit 1
-           fi
+          # Path to the Cobertura XML report.
+          path: ./cobertura.xml
+          # Minimum total coverage, if you want to the
+          # workflow to enforce it as a standard.
+          # This has no effect if the `fail` arg is set to `false`.
+          threshold: 80.123
+          # Fail the workflow if the minimum code coverage
+          # reuqirements are not satisfied.
+          fail: true
+          # Publish the rendered output as a PR comment
+          publish: true
+          # Create a coverage diff report.
+          diff: true
+          # Branch to diff against.
+          # Compare the current coverage to the coverage
+          # determined on this branch.
+          diff-branch: main
+          # This is where the coverage reports for the
+          # `diff-branch` are stored.
+          # Branch is created if it doesn't already exist'.
+          diff-storage: _xml_coverage_reports
+          # A custom title that can be added to the code
+          # coverage summary in the PR comment.
+          coverage-summary-title: "Code Coverage Summary"
