@@ -1,13 +1,32 @@
-- name: Clover test coverage check
-  uses: johanvanhelden/gha-clover-test-coverage-check@v1
-  with:
-    # The filename of the clover coverage XML file.
-    filename: coverage.xml  # default is coverage.xml
-    # The minimum percentage of coverage allowed.
-    percentage: 80  # default is 95
-    # The precision of the rounded coverage value.
-    rounded-precision: 2  # optional, default is 2
-    # Whether the coverage check should exit.
-    exit: true  # optional, default is true
-    # The metric to get and process.
-    metric: elements  # optional, default is elements
+name: Clover Test Coverage Check
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  coverage-check:
+    name: Check Clover Test Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Clover test coverage check
+        uses: johanvanhelden/gha-clover-test-coverage-check@v1
+        with:
+          # The filename of the clover coverage XML file.
+          filename: coverage.xml  # default is coverage.xml
+          # The minimum percentage of coverage allowed.
+          percentage: 95  # default is 95
+          # The precision of the rounded coverage value.
+          rounded-precision: 2  # optional, default is 2
+          # Whether the coverage check should exit.
+          exit: true  # optional, default is true
+          # The metric to get and process.
+          metric: elements  # optional, default is elements
