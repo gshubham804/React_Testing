@@ -1,16 +1,13 @@
-            - name: Clover test coverage check
-  # You may pin to the exact commit or the version.
-  # uses: johanvanhelden/gha-clover-test-coverage-check@2543c79a701f179bd63aa14c16c6938c509b2cec
+- name: Clover test coverage check
   uses: johanvanhelden/gha-clover-test-coverage-check@v1
   with:
     # The filename of the clover coverage XML file.
-    filename: # default is coverage.xml
+    filename: coverage.xml  # default is coverage.xml
     # The minimum percentage of coverage allowed.
-    percentage: # default is 80
+    percentage: 80  # default is 95
     # The precision of the rounded coverage value.
-    rounded-precision: # optional, default is 2
+    rounded-precision: 2  # optional, default is 2
     # Whether the coverage check should exit.
-    exit: # optional, default is true
+    exit: true  # optional, default is true
     # The metric to get and process.
-    metric: # optional, default is elements
-          
+    metric: elements  # optional, default is elements
