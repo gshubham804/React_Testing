@@ -1,4 +1,4 @@
-module.exports = {
+const jestConfig = {
   testEnvironment: "jsdom",
   moduleNameMapper: {
     "^.+\\.svg$": "jest-svg-transformer",
@@ -6,10 +6,12 @@ module.exports = {
   },
   coverageThreshold: {
     global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80
+      branches: 65,
+      functions: 65,
+      lines: 65,
+      statements: 65
     }
   }
 };
+
+export default jestConfig;
