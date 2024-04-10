@@ -24,7 +24,7 @@ jobs:
       - name: Run tests with coverage
         run: npm run coverage
 
-        - name: Check coverage
+      - name: Check coverage
         run: |
           if [ -f "coverage/lcov-report/index.html" ]; then
             # Extract coverage percentages from HTML report
