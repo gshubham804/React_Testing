@@ -119,7 +119,7 @@ describe("test cases for password field testing", () => {
     fireEvent.click(screen.getByText("Login"));
     
     // Assert that the error message is displayed
-    const errorMessage = screen.getByText("Password must be at least characters long");
+    const errorMessage = screen.getByText("Password must be at least 6 characters long");
     expect(errorMessage).toBeInTheDocument();
   });
 });
