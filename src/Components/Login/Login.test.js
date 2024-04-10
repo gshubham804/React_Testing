@@ -3,6 +3,9 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Login from "../Login";
 
+// Mock the console.log function
+global.console = { log: jest.fn() }
+
 describe("test cases for email field testing", () => {
   // Test that the email input field exists.
   test("test that the email input field exists", () => {
@@ -123,3 +126,40 @@ describe("test cases for password field testing", () => {
     expect(errorMessage).toBeInTheDocument();
   });
 });
+
+describe("test cases for login button",()=>{
+// Confirm that it exists
+test('Confirm that it exists',()=>{
+const {getByText} = render (<Login />)
+const loginButton = getByText("Login")
+expect(loginButton).toBeInTheDocument();
+})
+
+// displays "Login" as its label
+test('displays "Login" as its label', () => {
+  const { getByText } = render(<Login />);
+  const loginButton = getByText("Login");
+  expect(loginButton).toHaveTextContent("Login");
+});
+
+test('performs the correct action when clicked', () => {
+  const { getByText, getByLabelText } = render(<Login />);
+  const loginButton = getByText("Login");
+  const emailInput = getByLabelText("Email");
+  const passwordInput = getByLabelText("Password");
+
+  // Set values for email and password inputs
+  fireEvent.change(emailInput, { target: { value: "test@example.com" } });
+  fireEvent.change(passwordInput, { target: { value: "password123" } });
+
+  // Simulate click on the login button
+  fireEvent.click(loginButton);
+
+  // Assert that the correct action is performed 
+  // (for example, you can check if a login function is called)
+    // Assert that the console.log function is called with the correct arguments
+    expect(global.console.log).toHaveBeenCalledWith(
+      "Logging in with email:", "test@example.com", "and password:", "password123"
+    );
+});
+})
