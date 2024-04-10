@@ -1,10 +1,16 @@
-            - name: LCOV Minimum test coverage checker
+            - name: Clover test coverage check
   # You may pin to the exact commit or the version.
-  # uses: terencetcf/github-actions-lcov-minimum-coverage-checker@537e486d32b4763f3be8fbe81a79c3421071b190
-  uses: terencetcf/github-actions-lcov-minimum-coverage-checker@v1
+  # uses: johanvanhelden/gha-clover-test-coverage-check@2543c79a701f179bd63aa14c16c6938c509b2cec
+  uses: johanvanhelden/gha-clover-test-coverage-check@v1
   with:
-    # File path of the test coverage file. e.g.: `coverage/lcov.info`
-    coverage-file: 
-    # The minimum test coverage threshold. Optional. Default: `80`
-    minimum-coverage: # optional, default is 80
+    # The filename of the clover coverage XML file.
+    filename: # default is coverage.xml
+    # The minimum percentage of coverage allowed.
+    percentage: # default is 80
+    # The precision of the rounded coverage value.
+    rounded-precision: # optional, default is 2
+    # Whether the coverage check should exit.
+    exit: # optional, default is true
+    # The metric to get and process.
+    metric: # optional, default is elements
           
